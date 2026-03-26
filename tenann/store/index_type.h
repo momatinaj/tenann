@@ -28,9 +28,10 @@ namespace tenann {
 enum IndexFamily { kVectorIndex = 0, kTextIndex };
 
 enum IndexType {
-  kFaissHnsw = 0,  // 0: faiss hnsw
-  kFaissIvfFlat,   // 1: faiss ivf-flat
-  kFaissIvfPq,     // 2: faiss ivf-pq
+  kFaissHnsw = 0,       // 0: faiss hnsw
+  kFaissIvfFlat,        // 1: faiss ivf-flat
+  kFaissIvfPq,          // 2: faiss ivf-pq
+  kFaissHnswAcorn = 3,  // 3: ACORN-1 search over faiss hnsw graph
 
   kFaissIvfPqOneInvertedList = 100  // 100: one inverted list of faiss ivf-pq, use for block cache
 };

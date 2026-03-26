@@ -18,6 +18,7 @@
  */
 
 #include "tenann/factory/ann_searcher_factory.h"
+#include "tenann/searcher/acorn_hnsw_ann_searcher.h"
 #include "tenann/searcher/faiss_hnsw_ann_searcher.h"
 #include "tenann/searcher/faiss_ivf_pq_ann_searcher.h"
 #include "tenann/common/logging.h"
@@ -27,6 +28,8 @@ namespace tenann {
 std::shared_ptr<AnnSearcher> AnnSearcherFactory::CreateSearcherFromMeta(const IndexMeta& meta) {
   if (meta.index_type() == IndexType::kFaissHnsw) {
     return std::make_unique<FaissHnswAnnSearcher>(meta);
+  } else if (meta.index_type() == IndexType::kFaissHnswAcorn) {
+    return std::make_unique<AcornHnswAnnSearcher>(meta);
   } else if(meta.index_type() == IndexType::kFaissIvfPq) {
     return std::make_unique<FaissIvfPqAnnSearcher>(meta);
   } else {

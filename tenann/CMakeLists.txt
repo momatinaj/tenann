@@ -40,6 +40,7 @@ set(TENANN_SRC
     searcher/id_filter.cc
     searcher/searcher.cc
     searcher/ann_searcher.cc
+    searcher/acorn_hnsw_ann_searcher.cc
     searcher/faiss_hnsw_ann_searcher.cc
     searcher/faiss_ivf_pq_ann_searcher.cc
     store/index_meta.cc

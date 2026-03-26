@@ -39,6 +39,10 @@ namespace tenann {
     CASE_FN(kFaissHnsw);                                             \
     break;                                                           \
   }                                                                  \
+  case kFaissHnswAcorn: {                                            \
+    CASE_FN(kFaissHnswAcorn);                                        \
+    break;                                                           \
+  }                                                                  \
   case kFaissIvfPq: {                                                \
     CASE_FN(kFaissIvfPq);                                            \
     break;                                                           \
@@ -78,6 +82,28 @@ struct IndexFactoryTrait<kFaissHnsw> {
 
   static std::shared_ptr<IndexBuilder> CreateBuilderFromMeta(const IndexMeta& meta) {
     return std::make_shared<FaissHnswIndexBuilder>(meta);
+  };
+};
+
+// ACORN-1 uses the same HNSW index format; only the search algorithm differs.
+template <>
+struct IndexFactoryTrait<kFaissHnswAcorn> {
+  static std::shared_ptr<IndexReader> CreateReaderFromMeta(const IndexMeta& meta) {
+    IndexMeta hnsw_meta = meta;
+    hnsw_meta.SetIndexType(kFaissHnsw);
+    return std::make_shared<FaissIndexReader>(hnsw_meta);
+  };
+
+  static std::shared_ptr<IndexWriter> CreateWriterFromMeta(const IndexMeta& meta) {
+    IndexMeta hnsw_meta = meta;
+    hnsw_meta.SetIndexType(kFaissHnsw);
+    return std::make_shared<FaissIndexWriter>(hnsw_meta);
+  };
+
+  static std::shared_ptr<IndexBuilder> CreateBuilderFromMeta(const IndexMeta& meta) {
+    IndexMeta hnsw_meta = meta;
+    hnsw_meta.SetIndexType(kFaissHnsw);
+    return std::make_shared<FaissHnswIndexBuilder>(hnsw_meta);
   };
 };
 
